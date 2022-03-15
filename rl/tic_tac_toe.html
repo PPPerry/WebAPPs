@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算BMI</title>
+    <style type="text/css">
+        *{
+            font-size: 16px;
+            padding: 0px;
+            margin: 0px;
+        }
+        .top{
+            height: 150px;
+            background-image: url(https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3501997477,2331568432&fm=26&gp=0.jpg);
+            background-size: 100%;
+        }
+        .top>p{
+            font-size: 20px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 50px;
+        }
+        .main{
+            padding-top: 20px;
+            width: 860px;
+            height: 500px;
+            margin: 0px auto;
+            overflow:hidden; /*清除浮动*/
+        }
+        .left{
+            float: left;
+            width: 400px;
+            border: 1px solid #E9E9E9;
+            padding: 8px;
+            box-shadow: 5px 10px 10px #999;
+        }
+        .left>div{
+            margin-bottom: 10px;
+        }
+        .right{
+            float: right;
+            width: 400px;
+        }
+        th{
+            width: 200px;
+            line-height: 30px;
+        }
+        .end{
+            width: 100px;
+            margin: 20px auto;
+        }
+        input{
+            border: none;
+            border-bottom: 2px solid orange;
+            background-color: powderblue;
+        }
+        span{
+            color: red;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top">
+        <p>身体质量指数，是BMI指数，简称体质指数，是国际上常用的衡量人体胖瘦程度以及是否健康的一个标准。</p>   
+    </div>
+    <div class="main">
+        <div class="left">
+            <h4>计算你的身体质量指数 (BMI)</h4>
+            <p><span class="printbmi"></span>&nbsp;&nbsp;&nbsp;<span class="printbmi"></span></p>
+            <div>我的身高：<input type="text" class="heht"> 单位：厘米 cm</div> 
+            <div>我的体重：<input type="text" class="weht"> 单位：千克 kg</div> 
+            <div>BMI 标准：<input type="text" value="中国标准"></div> 
+            <div class="end"><input type="submit" value="计算BMI" onclick="onbmi()"></div> 
+        </div>
+        <div class="right">
+            <p style="color: brown; font-weight: bold;">BMI中国标准</p>
+            <table border="0px" cellspacing="0" cellpadding="0">
+                <tr style="background-color: chartreuse;">
+                    <th>分类</th>
+                    <th>BMI范围</th>
+                </tr>
+                <tr style="background-color: hotpink;">
+                    <th>偏瘦</th>
+                    <th><= 18.4</th>
+                </tr>
+                <tr style="background-color: cyan;">
+                    <th>正常</th>
+                    <th>18.5 ~ 23.9</th>
+                </tr>
+                <tr style="background-color: slateblue;">
+                    <th>过重</th>
+                    <th>24.0 ~ 27.9</th>
+                </tr>
+                <tr style="background-color: purple;">
+                    <th>肥胖</th>
+                    <th>28~32</th>
+                </tr>
+                <tr style="background-color: royalblue;">
+                    <th>严重肥胖</th>
+                    <th>> 32.0</th>
+                </tr>
+            </table>
+        </div>     
+    </div>
+    <script type="text/javascript">
+        var hv; 
+        var wv;
+        var heht = document.getElementsByClassName('heht')[0];
+        var weht = document.getElementsByClassName('weht')[0];
+        var printbmi0 = document.getElementsByClassName('printbmi')[0];
+        var printbmi1 = document.getElementsByClassName('printbmi')[1];   
+        //这两个函数是当身高和体重的value变化后，把改变后的value值赋给hv，wv。
+        heht.onchange = function(){       
+            hv = this.value;       
+        }
+        weht.onchange = function(){
+            wv= this.value  
+        }
+        function onbmi(){
+            var bmi = wv/((hv/100)**2); //BMI公式计算：体重（kg）除以身高（m）的平方
+            if(hv>0 && wv>0){           //判断输入身高和体重是否大于零
+                printbmi0.innerHTML = "你的BMI值为：" + bmi.toFixed(1);//bmi.toFixed 是将BMI值四舍五入且保留一位小数
+                if(bmi < 18.5){
+                    printbmi1.innerHTML = "你的身体状况：【偏瘦】";
+                }else if(bmi>=18.5 && bmi <= 23.9){
+                    printbmi1.innerHTML = "你的身体状况：【正常】";
+                }else if(bmi>=24 && bmi < 28){
+                    printbmi1.innerHTML = "你的身体状况：【过重】";
+                }else if(bmi>=28 && bmi < 32){
+                    printbmi1.innerHTML = "你的身体状况：【肥胖】";
+                }else{
+                    printbmi1.innerHTML = "你的身体状况：【严重肥胖】";
+                }
+            }else{
+                printbmi0.innerHTML = "输入数据有误！！！";
+                printbmi1.innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>
